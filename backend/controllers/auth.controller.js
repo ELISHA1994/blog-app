@@ -1,8 +1,17 @@
+import {sign_up} from "../services/auth.service.js";
 
-export const signup = (req, res) => {
-    const { name, email, password } = req.body;
+export const signup = async (req, res) => {
+    try {
+        await sign_up(req.body);
 
-    res.json({
-        user: { name, email, password }
-    })
+        res.json({
+            message: 'Signup successful! Please signin.'
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(400).json({
+            error: error
+        });
+    }
+
 };
