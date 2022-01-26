@@ -6,8 +6,13 @@ import cors from 'cors';
 import {default as logger} from "morgan";
 import {default as rfs} from "rotating-file-stream";
 import { default as DBG } from 'debug';
+
+
 import { approotdir } from "./approotdir.js";
 import {dbConnection, normalizePort, onError, onListening} from "./utils/utils";
+
+
+import blogsRoute from "./routes/blogs.route.js";
 
 
 // Global variables
@@ -40,6 +45,9 @@ app.use(logger(process.env.REQUEST_LOG_FORMAT || 'common',  {
         : process.stdout
 }));
 app.use(cors());
+
+// routes middleware
+app.use('/api', blogsRoute);
 
 export const server = http.createServer(app);
 server.listen(port);
