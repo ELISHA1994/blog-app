@@ -13,6 +13,7 @@ import {dbConnection, normalizePort, onError, onListening} from "./utils/utils";
 
 
 import blogsRoute from "./routes/blogs.route.js";
+import authRoute from "./routes/auth.route.js";
 
 
 // Global variables
@@ -48,6 +49,7 @@ app.use(cors());
 
 // routes middleware
 app.use('/api', blogsRoute);
+app.use('/api', authRoute);
 
 export const server = http.createServer(app);
 server.listen(port);
