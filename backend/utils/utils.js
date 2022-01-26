@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { port, server } from "../server";
 import { default as DBG } from 'debug';
 
@@ -44,4 +45,17 @@ export function onListening() {
         ? 'pipe ' + addr
         : 'port ' + addr.port;
     debug(`Listening on ${bind}`)
+}
+
+export async function dbConnection() {
+    try {
+        await mongoose.connect(process.env.DB_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        debug("Database Connected");
+    } catch (err) {
+        dbgerror("Database connectivity error", err);
+        throw new Error(err);
+    }
 }

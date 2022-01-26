@@ -7,7 +7,7 @@ import {default as logger} from "morgan";
 import {default as rfs} from "rotating-file-stream";
 import { default as DBG } from 'debug';
 import { approotdir } from "./approotdir.js";
-import {normalizePort, onError, onListening} from "./utils/utils";
+import {dbConnection, normalizePort, onError, onListening} from "./utils/utils";
 
 
 // Global variables
@@ -19,6 +19,9 @@ dotenv.config();
 
 // Initialize the express app object
 export const app = express();
+
+// Db connectivity
+await dbConnection();
 
 // Setting api port
 export const port = normalizePort(process.env.PORT || '1337');
