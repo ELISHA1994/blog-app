@@ -1,5 +1,14 @@
 import {useState} from "react";
-import {Collapse, Nav, Navbar, NavItem, NavLink, NavbarBrand, NavbarToggler} from "reactstrap";
+import {APP_NAME} from "../../config";
+import {
+    Collapse,
+    Nav,
+    Navbar,
+    NavItem,
+    NavLink,
+    NavbarBrand,
+    NavbarToggler
+} from "reactstrap";
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -9,7 +18,7 @@ const Header = () => {
     return (
         <div>
             <Navbar color='light' light expand='md'>
-                <NavbarBrand href='/'>Blogger</NavbarBrand>
+                <NavbarBrand href='/'>{APP_NAME}</NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className='ml-auto' navbar>
