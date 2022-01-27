@@ -1,7 +1,7 @@
 import http from "http";
 import path from "path";
 import express from "express";
-import dotenv from 'dotenv';
+import dotenv from 'dotenv/config';
 import cors from 'cors';
 import {default as logger} from "morgan";
 import {default as rfs} from "rotating-file-stream";
@@ -21,7 +21,6 @@ const __dirname = approotdir;
 const debug = DBG('server:debug');
 const dbgerror = DBG('server:error');
 
-dotenv.config();
 
 // Initialize the express app object
 export const app = express();

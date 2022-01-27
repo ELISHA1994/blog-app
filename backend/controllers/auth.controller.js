@@ -1,4 +1,4 @@
-import expressjwt from "express-jwt";
+import expressJwt from "express-jwt";
 import {sign_up, sign_in} from "../services/auth.service.js";
 
 export const signup = async (req, res) => {
@@ -30,3 +30,17 @@ export const signin = async (req, res) => {
         });
     }
 }
+
+export const signout = async (req, res) => {
+    res.clearCookie('token')
+    return res.json({
+        message: 'Signout success'
+    })
+}
+
+export const requireSignin = expressJwt({
+    secret: process.env.JWT_SECRET,
+    algorithms: ['HS256'],
+});
+
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWYxOTg0ZjYwYWQ0OGE4ZGU0NDA5MGQiLCJpYXQiOjE2NDMyNzA5MDUsImV4cCI6MTY0MzM1NzMwNX0.LNR54XiBhT8cB8zig6URAmpxO0pazmIf0AvxTlm0WeM

@@ -35,7 +35,7 @@ export const sign_in = async (data) => {
     const token = await jwt.sign(
         { _id: user._id },
         process.env.JWT_SECRET,
-        { expiresIn: '1d' }
+        { algorithm: 'HS256', expiresIn: '1d' }
     );
 
     const { _id, username, name, email, role } = user;
