@@ -1,4 +1,5 @@
 import {useState} from "react";
+import Link from "next/link";
 import {APP_NAME} from "../../config";
 import {
     Collapse,
@@ -9,6 +10,7 @@ import {
     NavbarBrand,
     NavbarToggler
 } from "reactstrap";
+// import "./Header.sass";
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -18,15 +20,24 @@ const Header = () => {
     return (
         <div>
             <Navbar color='light' light expand='md'>
-                <NavbarBrand href='/'>{APP_NAME}</NavbarBrand>
+                <Link href="">
+                    <NavLink className="logo">Blogger</NavLink>
+                </Link>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className='ml-auto' navbar>
                         <NavItem>
-                            <NavLink href='/components/'>Components</NavLink>
+                            <Link href="/signin">
+                                <NavLink>SignIn</NavLink>
+                            </Link>
                         </NavItem>
                         <NavItem>
-                            <NavLink href='https://github.com/reactstrap/reactstrap'>
+                            <Link href="/signup">
+                                <NavLink>SignUp</NavLink>
+                            </Link>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href='https://github.com/alexticovschi/blogger'>
                                 GitHub
                             </NavLink>
                         </NavItem>
