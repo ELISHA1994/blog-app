@@ -8,9 +8,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "axios": "^0.25.0",
     "bootstrap": "5.1",
     "clsx": "^1.1.1",
     "install": "^0.13.0",
+    "isomorphic-fetch": "^3.0.0",
     "next": "12.0.9",
     "npm": "^8.4.0",
     "react": "17.0.2",

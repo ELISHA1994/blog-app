@@ -1,6 +1,6 @@
 export const API = process.env.PRODUCTION
     ? 'https://blogger.com'
-    : 'http://localhost:3000';
+    : 'http://localhost:1337/api';
 
 
 
