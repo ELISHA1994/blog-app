@@ -1,5 +1,10 @@
 import Layout from '../components/Layout';
+import SignupComponent from "../components/auth/SignupComponent";
 
-const Index = () => <Layout>Signup Page</Layout>;
+const Signup = () => (
+    <Layout>
+        <SignupComponent />
+    </Layout>
+);
 
-export default Index;
+export default Signup;
