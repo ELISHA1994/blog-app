@@ -1,5 +1,12 @@
-import Layout from "../components/Layout";
+import Head from 'next/head'
+import Image from 'next/image'
+import Layout from "../components/Layout.js"
+import styles from '../styles/Home.module.css'
 
-const Index = () => <Layout>Index Page</Layout>;
-
-export default  Index;
+export default function Home() {
+  return (
+      <Layout>
+        Index Page
+      </Layout>
+  )
+}

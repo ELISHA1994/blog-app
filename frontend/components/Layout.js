@@ -1,10 +1,10 @@
 import Header from "./Header/Header";
-const Layout = ({ children }) => (
-    <>
-        <Header />
-        {children}
-        <p>Footer</p>
-    </>
-);
-
-export default Layout;
+export default function Layout({children}) {
+    return (
+        <>
+            <Header />
+            {children}
+            <p>Footer</p>
+        </>
+    )
+}
