@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import Link from "next/link";
-import {APP_NAME} from "../../config";
+
 import {
     Collapse,
     Navbar,
     NavbarToggler,
-    NavbarBrand,
     Nav,
     NavItem,
     NavLink
