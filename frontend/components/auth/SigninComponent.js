@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { signin, authenticate } from "../../actions/auth";
+import { useState, useEffect } from "react";
+import { signin, authenticate, isAuth } from "../../actions/auth";
 import { Spinner } from "reactstrap";
 import { useRouter } from "next/router";
 
@@ -18,6 +18,10 @@ const SigninComponent = () => {
 
     const router = useRouter();
 
+    useEffect(() => {
+        isAuth() && router.push('/')
+    });
+
     const { email, password, error, loading, message, showForm } = values;
 
     const handleSubmit = e => {
@@ -33,8 +37,8 @@ const SigninComponent = () => {
                 // store token in cookie
                 // save userinfo to localstorage
                 // authenticate user
-                authenticate(data, async () => {
-                    await router.push('/');
+                authenticate(data, () => {
+                    router.push('/');
                 });
             }
         })
