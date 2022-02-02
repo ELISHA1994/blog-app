@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Link from "next/link";
-
+import { isAuth, signout } from "../../actions/auth";
+import { useRouter } from "next/router";
 import {
     Collapse,
     Navbar,
@@ -16,6 +17,9 @@ const Header = () => {
     // console.log(process.env.NEXT_PUBLIC_APP_NAME);
 
     const toggle = () => setIsOpen(!isOpen);
+
+    const router = useRouter();
+
     return (
         <div>
             <Navbar color='light' light expand='md'>
@@ -25,16 +29,32 @@ const Header = () => {
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className='ml-auto' navbar>
-                        <NavItem>
-                            <Link href='/signin'>
-                                <NavLink className={styles.cursor_pointer}>SignIn</NavLink>
-                            </Link>
-                        </NavItem>
-                        <NavItem>
-                            <Link href='/signup'>
-                                <NavLink className={styles.cursor_pointer}>SignUp</NavLink>
-                            </Link>
-                        </NavItem>
+                        {isAuth() ? (
+                            <NavItem>
+                                <Link href='/signin'>
+                                    <NavLink
+                                        className={styles.cursor_pointer}
+                                        onClick={() => signout(() => router.replace('/signin'))}
+                                    >
+                                        signOut
+                                    </NavLink>
+                                </Link>
+                            </NavItem>
+                        ) : (
+                            <>
+                                <NavItem>
+                                    <Link href='/signin'>
+                                        <NavLink className={styles.cursor_pointer}>SignIn</NavLink>
+                                    </Link>
+                                </NavItem>
+                                <NavItem>
+                                    <Link href='/signup'>
+                                        <NavLink className={styles.cursor_pointer}>SignUp</NavLink>
+                                    </Link>
+                                </NavItem>
+                            </>
+                        )}
+
                         <NavItem>
                             <NavLink href='https://github.com/alexticovschi/blogger'>
                                 GitHub
@@ -48,3 +68,5 @@ const Header = () => {
 };
 
 export default Header;
+
+

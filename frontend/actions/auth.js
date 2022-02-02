@@ -1,7 +1,7 @@
 import fetch from "isomorphic-fetch"
 import { API } from "../config";
 import cookie from "js-cookie";
-import data from "bootstrap/js/src/dom/data";
+// import data from "bootstrap/js/src/dom/data";
 
 export const signup = user => {
     return fetch(`${API}/signup`, {
@@ -28,6 +28,18 @@ export const signin = user => {
         .then(response => response.json())
         .catch(error => console.error(error))
 }
+
+export const signout = next => {
+    removeCookie('token');
+    removeLocalStorage('user');
+    next()
+
+    return fetch(`${API}/signout`, {
+        method: 'GET',
+    })
+        .then(response => console.log('Signout successfully'))
+        .catch(error => console.error(error));
+};
 
 // set cookie
 export const setCookie = (key, value) => {
