@@ -30,16 +30,31 @@ const Header = () => {
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className='ml-auto' navbar>
                         {isAuth() ? (
-                            <NavItem>
-                                <Link href='/signin'>
-                                    <NavLink
-                                        className={styles.cursor_pointer}
-                                        onClick={() => signout(() => router.replace('/signin'))}
-                                    >
-                                        signOut
-                                    </NavLink>
-                                </Link>
-                            </NavItem>
+                            <>
+                                <NavItem>
+                                    <Link href='/signin'>
+                                        <NavLink
+                                            className={styles.cursor_pointer}
+                                            onClick={() => signout(() => router.replace('/signin'))}
+                                        >
+                                            signOut
+                                        </NavLink>
+                                    </Link>
+                                </NavItem>
+                                {isAuth().role === 1 ? (
+                                    <NavItem>
+                                        <Link href='/admin'>
+                                            <NavLink>{`${isAuth().name}'s Dashboard`}</NavLink>
+                                        </Link>
+                                    </NavItem>
+                                ) : (
+                                    <NavItem>
+                                        <Link href='/user'>
+                                            <NavLink>{`${isAuth().name}'s Dashboard`}</NavLink>
+                                        </Link>
+                                    </NavItem>
+                                )}
+                            </>
                         ) : (
                             <>
                                 <NavItem>
@@ -54,12 +69,6 @@ const Header = () => {
                                 </NavItem>
                             </>
                         )}
-
-                        <NavItem>
-                            <NavLink href='https://github.com/alexticovschi/blogger'>
-                                GitHub
-                            </NavLink>
-                        </NavItem>
                     </Nav>
                 </Collapse>
             </Navbar>
