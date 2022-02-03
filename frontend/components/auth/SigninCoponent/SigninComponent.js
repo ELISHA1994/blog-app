@@ -1,21 +1,19 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import clsx from "clsx";
-import { signup, isAuth } from "../../actions/auth";
+import { signin, authenticate, isAuth } from "../../../actions/auth";
 import { Spinner } from "reactstrap";
-import Link from "next/link"
+import { useRouter } from "next/router";
 
-import styles from "../../styles/SignupComponent.module.scss";
+import styles from "../../../styles/SigninCommponent.module.scss";
+import clsx from "clsx";
 
-const SignupComponent = () => {
+const SigninComponent = () => {
     const [values, setValues] = useState({
-        name: '',
         email: '',
         password: '',
         error: '',
         loading: false,
         message: '',
-        showForm: true
+        showForm: true,
     });
 
     const router = useRouter();
@@ -24,32 +22,30 @@ const SignupComponent = () => {
         isAuth() && router.push('/')
     });
 
-    const { name, email, password, error, loading, message, showForm } = values;
+    const { email, password, error, loading, message, showForm } = values;
 
     const handleSubmit = e => {
-        e.preventDefault()
-        console.table(values);
-
+        e.preventDefault();
         setValues({ ...values, loading: true, error: false });
 
-        const userData = { name, email, password };
+        const userData = { email, password };
 
-        signup(userData).then(data => {
+        signin(userData).then(data => {
             if (data.error) {
                 setValues({ ...values, error: data.error, loading: false });
             } else {
-                setValues({
-                    ...values,
-                    name: '',
-                    email: '',
-                    password: '',
-                    error: '',
-                    loading: false,
-                    message: data.message,
-                    showForm: false
+                // store token in cookie
+                // save userinfo to localstorage
+                // authenticate user
+                authenticate(data, () => {
+                    if (isAuth() && isAuth().role === 1) {
+                        router.push('/admin');
+                    } else {
+                        router.push('/user');
+                    }
                 });
             }
-        });
+        })
     }
 
     const handleChange = name => e => {
@@ -57,42 +53,24 @@ const SignupComponent = () => {
     }
 
     const displayError = () =>
-        error ? <p className='alert alert-danger text-center'>{error}</p> : '';
+        error ? <p className="alert alert-danger text-center">{error}</p> : '';
 
     const displayMessage = () =>
-        message ? (
-            <p className='alert alert-info text-center'>
-                <Link href='/signin'>
-                    <a>{message}</a>
-                </Link>
-            </p>
-        ) : (
-            ''
-        );
+        message ? <p className="alert alert-info text-center">{message}</p> : '';
+
 
     return (
-        <section className={styles.signup_form}>
+        <section className={styles.signin_form}>
             {loading ? (
-                <Spinner color='secondary' style={{ width: '3rem', height: '3rem' }} />
+                <Spinner color='secondary' style={{width: '3rem', height: '3rem'}} />
             ) : (
-                <div className="container">
-                    <h2 className={clsx(styles.title, "text-center")}>Join Our Blog</h2>
-                    <div className="row">
+                <div className='container'>
+                    <h2 className={clsx(styles.title, 'text-center')}>Sign In</h2>
+                    <div className='row'>
                         <div className='col-lg-6 col-md-8 mx-auto'>
                             <form onSubmit={handleSubmit}>
-                                <div className="form-group">
-                                    <label htmlFor='name'>Name:</label>
-                                    <input
-                                        onChange={handleChange('name')}
-                                        type='text'
-                                        className='form-control'
-                                        placeholder='Enter name'
-                                        id='name'
-                                        value={name}
-                                    />
-                                </div>
                                 <div className='form-group'>
-                                    <label htmlFor='email'>Email address:</label>
+                                    <label htmlFor='email'>Email address</label>
                                     <input
                                         onChange={handleChange('email')}
                                         type='email'
@@ -103,7 +81,7 @@ const SignupComponent = () => {
                                     />
                                 </div>
                                 <div className='form-group'>
-                                    <label htmlFor='pwd'>Password:</label>
+                                    <label htmlFor='pwd'>Password</label>
                                     <input
                                         onChange={handleChange('password')}
                                         type='password'
@@ -114,8 +92,8 @@ const SignupComponent = () => {
                                     />
                                 </div>
 
-                                <button type='submit' className={clsx('btn', styles.signup_btn, 'btn-block')}>
-                                    SIGN UP
+                                <button type='submit' className={clsx('btn', styles.signin_btn, 'btn-block')}>
+                                    SIGN IN
                                 </button>
                             </form>
                         </div>
@@ -132,4 +110,4 @@ const SignupComponent = () => {
     );
 }
 
-export default SignupComponent
+export default SigninComponent;
