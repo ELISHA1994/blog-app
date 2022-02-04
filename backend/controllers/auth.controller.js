@@ -42,6 +42,14 @@ export const signout = async (req, res) => {
 export const requireSignin = expressJwt({
     secret: process.env.JWT_SECRET,
     algorithms: ['HS256'],
+    getToken: function fromHeaderOrQuerystring(req) {
+        if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+            return req.headers.authorization.split(' ')[1];
+        } else if (req.query && req.query.token) {
+            return req.query.token;
+        }
+        return null;
+    }
 });
 
 export const authMiddleware = async (req, res, next) => {
@@ -73,7 +81,7 @@ export const adminMiddleware = async (req, res, next) => {
     }
 
     // check if admin
-    if (user.role !== 1) {
+    if (user.role !== 0) {
         return res.status(400).json({
             error: 'Admin resource. Access denied'
         });

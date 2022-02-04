@@ -55,7 +55,7 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.virtual('password')
     .set(function (password) {
-        // create a temporary variable _password
+        // create_category a temporary variable _password
         this.hashed_password = password;
 
         // generate salt
