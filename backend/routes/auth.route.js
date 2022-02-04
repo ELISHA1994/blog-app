@@ -1,8 +1,10 @@
 import express from "express";
+
+// controllers
 import {
     signup,
     signin,
-    requireSignin, signout
+    signout
 } from "../controllers/auth.controller.js"
 
 // Validators
