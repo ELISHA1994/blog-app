@@ -1,6 +1,7 @@
 import '../styles/globals.scss';
 import Head from 'next/head';
 import "bootstrap/scss/bootstrap.scss";
+import "nprogress/nprogress.css"
 
 function MyApp({ Component, pageProps }) {
 

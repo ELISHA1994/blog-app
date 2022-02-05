@@ -7,7 +7,6 @@ import {default as logger} from "morgan";
 import {default as rfs} from "rotating-file-stream";
 import { default as DBG } from 'debug';
 
-// @password
 import { approotdir } from "./approotdir.js";
 import {dbConnection, normalizePort, onError, onListening} from "./utils/utils";
 

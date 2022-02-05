@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import Link from "next/link";
 import { isAuth, signout } from "../../actions/auth";
-import { useRouter } from "next/router";
+import Router from "next/router";
+import NProgress from "nprogress";
 import {
     Collapse,
     Navbar,
@@ -12,13 +13,17 @@ import {
 } from 'reactstrap';
 import styles from  '../../styles/Header.module.scss';
 
+Router.onRouteChangeStart = url => NProgress.start();
+Router.onRouteChangeComplete = url => NProgress.done();
+Router.onRouteChangeError = url => NProgress.done();
+
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
     // console.log(process.env.NEXT_PUBLIC_APP_NAME);
 
     const toggle = () => setIsOpen(!isOpen);
 
-    const router = useRouter();
+    // const router = useRouter();
 
     return (
         <div>
@@ -48,7 +53,7 @@ const Header = () => {
                                     <Link href='/signin'>
                                         <NavLink
                                             className={styles.cursor_pointer}
-                                            onClick={() => signout(() => router.replace('/signin'))}
+                                            onClick={() => signout(() => Router.replace('/signin'))}
                                         >
                                             signOut
                                         </NavLink>
