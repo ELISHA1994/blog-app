@@ -5,10 +5,7 @@ export default class MyDocument extends Document {
         return(
             <Html lang='en'>
                 <Head>
-                    <link
-                        rel='stylesheet'
-                        href='https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css'
-                    />
+                    <link rel='stylesheet' href='/css/nprogress.css' />
                 </Head>
                 <body>
                     <Main />
