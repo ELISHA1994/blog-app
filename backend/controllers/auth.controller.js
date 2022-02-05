@@ -81,7 +81,7 @@ export const adminMiddleware = async (req, res, next) => {
     }
 
     // check if admin
-    if (user.role !== 0) {
+    if (user.role !== 1) {
         return res.status(400).json({
             error: 'Admin resource. Access denied'
         });
